@@ -19,6 +19,7 @@ const ContactTableHeader = () => {
 const ContactTableRow = ({ contact }) => {
     return (
         <tr>
+         
             <td>{contact.contactId}</td>
             <td>{contact.firstName}</td>
             <td>{contact.lastName}</td>
@@ -32,6 +33,7 @@ const ContactTableRow = ({ contact }) => {
 }
 
 class ContactTable extends React.Component{
+    
 
     // this static property will initialize a prop with data
     // if it hasn't been provided by the parent component
@@ -57,7 +59,7 @@ class ContactTable extends React.Component{
     }
 
     render(){
-        return( 
+        return(                                                                                                         
         <Table striped bordered responsive>
             <thead>
                  <ContactTableHeader/>
