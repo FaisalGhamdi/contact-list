@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import ContactTable from './components/ContactTable'
 import ContactForm from './components/ContactForm'
-//import ContactModal from './components/ContactModal'
+import ContactModal from './components/ContactModal'
 
 import { Container, Row, Col } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,6 +15,7 @@ class App extends React.Component {
 
   state = {
     loading: false,
+    showEditModal: false,
     contactData: [
       {
         "contactId": 1, "firstName": "Fake",
@@ -29,6 +30,14 @@ class App extends React.Component {
         company: '',
         phone: '',
         email: ''
+      },
+      editContactData: {
+        "contactId": 48,
+        "firstName": "Faisal",
+        "lastName": "Beeblebrox",
+        "company": "Heart of Gold",
+        "phone": "000-0000",
+        "email": "prez@badnews.us"
       }
   }
 
@@ -71,6 +80,20 @@ class App extends React.Component {
       });
   }
 
+  handleEditModalClose = (event) => {
+    console.log("Closing Edit Modal")
+    this.setState({showEditModal: false})
+  }
+
+  
+  handleEditModalOpen = (event) => {
+    console.log("Opening Edit Modal")
+    if (event) event.preventDefault();
+    let contactId = event.target.value;
+    console.log(`Editing contact id ${contactId}`)
+    this.setState({showEditModal: true})
+  }
+
   loadContactData() {
     this.setState({ loading: true })
     console.log("Loading contact data")
@@ -80,6 +103,8 @@ class App extends React.Component {
         { contactData: data, loading: false }
       ))
   }
+
+
 
   componentDidMount() {
     console.log("App is now mounted.")
@@ -98,7 +123,10 @@ class App extends React.Component {
         <Row>
           <Col sm={8}>
             <h2>My Contacts</h2>
-            <ContactTable contacts={this.state.contactData} />
+            <ContactTable 
+            contacts={this.state.contactData}
+            handleEdit={this.handleEditModalOpen}
+             />
           </Col>
           <Col sm={4}>
             <h2>Add New Contact</h2>
@@ -108,7 +136,10 @@ class App extends React.Component {
                 contactData={this.state.newContactData} />
           </Col>
         </Row>
-        {/* <ContactModal /> */}
+        <ContactModal
+         show={this.state.showEditModal}
+         handleClose={this.handleEditModalClose}
+         contactData={this.state.editContactData} />
       </Container>
     );
   }

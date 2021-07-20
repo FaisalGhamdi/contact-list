@@ -2,7 +2,6 @@ import React from 'react';
 import { Form, Button } from 'react-bootstrap'
 
 class ContactForm extends React.Component {
-
     render() {
       let { contactData, handleChange, handleSubmit} = this.props;
         return (
